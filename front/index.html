@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 pl-0 pr-0">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- Navbar content -->
+            <a class="navbar-brand" href="#">Plan pracy</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav w-100">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"
+                    >Home <span class="sr-only">(current)</span></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Moje</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Wyloguj</a>
+                </li>
+                <li class="nav-item ml-auto">
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    Lista akcji
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-12">
+          <div class="card m-2">
+            <div class="card-body">
+              <h3 class="text-center">Do zrobienia</h3>
+              <ul class="list-unstyled">
+                <li class="m-2">
+                  <div class="card">
+                    <div class="card-header">
+                      Przykadowe zadanie
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="card-content d-flex justify-content-between">
+                        <div class="left-side p-2">
+                          <p class="card-text">
+                            Data zadania: Od: Do:
+                          </p>
+                          <button
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                          >
+                            Go somewhere
+                          </button>
+                        </div>
+                        <div class="right-side border-left pl-2 pr-2">
+                          <p class="pt-2">Login</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="m-2">
+                  <div class="card">
+                    <div class="card-header">
+                      Przykadowe zadanie
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        With supporting text below as a natural lead-in to
+                        additional content.
+                      </p>
+                      <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                      >
+                        Go somewhere
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="card m-2">
+            <div class="card-body">
+              <h3 class="text-center">W trakcie</h3>
+              <ul class="list-unstyled">
+                <li>
+                  <div class="card">
+                    <div class="card-header">
+                      Przykadowe zadanie
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        With supporting text below as a natural lead-in to
+                        additional content.
+                      </p>
+                      <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                      >
+                        Go somewhere
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="card m-2">
+            <div class="card-body">
+              <h3 class="text-center">Zakończone</h3>
+              <ul class="list-unstyled">
+                <li>
+                  <div class="card">
+                    <div class="card-header">
+                      Przykadowe zadanie
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        With supporting text below as a natural lead-in to
+                        additional content.
+                      </p>
+                      <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                      >
+                        Go somewhere
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="collapse m-2 position-absolute" id="collapseExample">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-lg modal-dialog-centered"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">
+                Zadanie
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
