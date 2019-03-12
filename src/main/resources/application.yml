@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/project-manager-600?useSSL=false&serverTimezone=UTC
-    username: root
-    password:
+    username: admin
+    password: admin
   jpa:
     show-sql: false
     properties:
