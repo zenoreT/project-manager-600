@@ -14,3 +14,21 @@ body {
     display: flex;
     align-items: center;
 }
+
+.card-container {
+    height: calc(100vh - 75px);
+}
+
+.action-list {
+    right: 0;
+    top: 0;
+}
+
+.action-list__container {
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+}
+
+textarea {
+    resize: none;
+}

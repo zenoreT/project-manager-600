@@ -17,7 +17,7 @@
         <div class="col-12 pl-0 pr-0">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <!-- Navbar content -->
-            <a class="navbar-brand" href="#">Plan pracy</a>
+            <a class="navbar-brand" href="#">Project Manager 600</a>
             <button
               class="navbar-toggler"
               type="button"
@@ -54,18 +54,29 @@
                   >
                     Lista akcji
                   </button>
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#addTask"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    Dodaj zadanie
+                  </button>
                 </li>
               </ul>
             </div>
           </nav>
         </div>
       </div>
-      <div class="row">
+      <div class="row position-relative">
         <div class="col-lg-4 col-md-12">
-          <div class="card m-2">
-            <div class="card-body">
-              <h3 class="text-center">Do zrobienia</h3>
-              <ul class="list-unstyled">
+          <div class="card card-container m-2">
+            <div class="card-body p-0">
+              <h3 class="text-center p-2">Do zrobienia</h3>
+              <hr class="m-0">
+              <ul class="list-unstyled p-2">
                 <li class="m-2">
                   <div class="card">
                     <div class="card-header">
@@ -73,19 +84,19 @@
                     </div>
                     <div class="card-body p-0">
                       <div class="card-content d-flex justify-content-between">
-                        <div class="left-side p-2">
+                        <div class="left-side p-3">
                           <p class="card-text">
                             Data zadania: Od: Do:
                           </p>
                           <button
                             class="btn btn-primary"
                             data-toggle="modal"
-                            data-target="#exampleModalCenter"
+                            data-target="#manageTask"
                           >
                             Go somewhere
                           </button>
                         </div>
-                        <div class="right-side border-left pl-2 pr-2">
+                        <div class="right-side border-left pl-3 pr-3">
                           <p class="pt-2">Login</p>
                         </div>
                       </div>
@@ -97,18 +108,24 @@
                     <div class="card-header">
                       Przykadowe zadanie
                     </div>
-                    <div class="card-body">
-                      <p class="card-text">
-                        With supporting text below as a natural lead-in to
-                        additional content.
-                      </p>
-                      <button
-                        class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter"
-                      >
-                        Go somewhere
-                      </button>
+                    <div class="card-body p-0">
+                      <div class="card-content d-flex justify-content-between">
+                        <div class="left-side p-3">
+                          <p class="card-text">
+                            Data zadania: Od: Do:
+                          </p>
+                          <button
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#manageTask"
+                          >
+                            Go somewhere
+                          </button>
+                        </div>
+                        <div class="right-side border-left pl-3 pr-3">
+                          <p class="pt-2">Login</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -117,7 +134,7 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
-          <div class="card m-2">
+          <div class="card card-container m-2">
             <div class="card-body">
               <h3 class="text-center">W trakcie</h3>
               <ul class="list-unstyled">
@@ -134,7 +151,7 @@
                       <button
                         class="btn btn-primary"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#manageTask"
                       >
                         Go somewhere
                       </button>
@@ -146,7 +163,7 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
-          <div class="card m-2">
+          <div class="card card-container m-2">
             <div class="card-body">
               <h3 class="text-center">Zakończone</h3>
               <ul class="list-unstyled">
@@ -174,20 +191,23 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-12">
-          <div class="collapse m-2 position-absolute" id="collapseExample">
-            <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident.
+        <div class="col-lg-3 col-md-12 action-list position-absolute p-0">
+          <div class="collapse m-0" id="collapseExample">
+            <div class="card card-body action-list__container">
+              <div class="card">
+                <div class="card-body">
+                  This is some text within a card body.
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- single task -->
       <div
         class="modal fade"
-        id="exampleModalCenter"
+        id="manageTask"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
@@ -212,7 +232,41 @@
               </button>
             </div>
             <div class="modal-body">
-              ...
+              <div class="row">
+                <div class="col-8">
+                  <div class="task-info d-flex flex-column">
+                    <div class="task-info__start-date">
+                        <span class="font-weight-bold">Od: </span> <span class="start-date">10.03.12</span> 
+                    </div>
+                    <div class="task-info__end-date">
+                        <span class="font-weight-bold">Do: </span> <span class="end-date">15.03.12</span>
+                    </div>
+                    <div class="task-info__assignee">
+                        <span class="font-weight-bold">Wykonawca: </span> <span class="assignee">Grzegi</span>
+                    </div>
+                    <div class="task-info__description">
+                        <span class="font-weight-bold">Opis:</span>
+                        <span class="description">
+                            Fajne zadanie
+                          </span>
+                    </div>
+                    <div class="task-info__comments d-flex flex-column">
+                        <hr>
+                        <p class="font-weight-bold">Komentarze:</p>
+                        <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
+                        <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-4">
+                  <div class="buttons">
+                      <button class="btn btn-success mb-2">Zmień wykonawcę</button>
+                      <button class="btn btn-success">Zmień status</button>
+                  </div>
+
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
               <button
@@ -220,16 +274,101 @@
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Zamknij
               </button>
               <button type="button" class="btn btn-primary">
-                Save changes
+                Zapisz zmiany
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ./ single task -->
+
+
+      <!-- add task -->
+       <div
+        class="modal fade"
+        id="addTask"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-lg modal-dialog-centered"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">
+                Zadanie
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-8">
+                  <div class="task-info d-flex flex-column">
+                    <div class="task-info__start-date">
+                        <span class="font-weight-bold">Od: </span> <span class="start-date">10.03.12</span> 
+                    </div>
+                    <div class="task-info__end-date">
+                        <span class="font-weight-bold">Do: </span> <span class="end-date">15.03.12</span>
+                    </div>
+                    <div class="task-info__assignee">
+                        <span class="font-weight-bold">Wykonawca: </span> <span class="assignee">Grzegi</span>
+                    </div>
+                    <div class="task-info__description">
+                        <span class="font-weight-bold">Opis:</span>
+                        <span class="description">
+                            Fajne zadanie
+                          </span>
+                    </div>
+                    <div class="task-info__comments d-flex flex-column">
+                        <hr>
+                        <p class="font-weight-bold">Komentarze:</p>
+                        <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
+                        <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-4">
+                  <div class="buttons">
+                      <button class="btn btn-success mb-2">Zmień wykonawcę</button>
+                      <button class="btn btn-success">Zmień status</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Zamknij
+              </button>
+              <button type="button" class="btn btn-primary">
+                Zapisz zmiany
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- ./ add task -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
