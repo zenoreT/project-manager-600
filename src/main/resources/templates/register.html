@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <title>Project-Manager-600</title>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row vertical-center">
+    <div class="col-4"></div>
+    <div class="col-4 border p-4">
+      <form th:action="@{/register}" th:object="${user}" method="POST" class="px-4 py-3 center-login">
+        <div class="form-group">
+          <label for="exampleDropdownFormEmail1">Login</label>
+          <input type="text" th:field="${user.username}" class="form-control" id="exampleDropdownFormEmail1"
+                 placeholder="Wprowadź nazwę użytkownika" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleDropdownFormPassword1">Hasło</label>
+          <input type="password" th:field="${user.password}" class="form-control" id="exampleDropdownFormPassword1" placeholder="Wprowadź hasło">
+        </div>
+<!--        <div class="form-group">-->
+<!--          <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Powtórz hasło">-->
+<!--        </div>-->
+        <div class="form-group">
+          <label for="exampleDropdownFormPassword1">Stanowisko</label>
+          <select th:field="${user.role}" class="browser-default custom-select">
+            <option th:each="role : ${roles}" th:value="${role}" th:text="${role.getName()}">
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+      </form>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,13 +1,13 @@
 package pl.projectmanager600.entities;
 
-public enum Role {
-  PROGRAMMER("programista"),
-  PROJECT_MANAGER("project manager"),
-  TESTER("tester");
+public enum Status {
+  TO_DO("Do zrobienia"),
+  IN_PROGRESS("W trakcie"),
+  DONE("Zakończone");
 
   private String name;
 
-  Role(String name) {
+  Status(String name) {
     this.name = name;
   }
 

@@ -1,6 +1,7 @@
 package pl.projectmanager600.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,17 +12,21 @@ public class User {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "username", nullable = false)
+  @Column(name = "username", nullable = false, unique = true)
   private String username;
 
   @Column(name = "password", nullable = false)
   private String password;
 
   @Column(name = "role", nullable = false)
+  @Enumerated(EnumType.STRING)
   private Role role;
 
-//  private List<Task> tasks;
+  @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Task> tasks;
 
+  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Comment> comments;
 
   public Long getId() {
     return id;
@@ -53,5 +58,21 @@ public class User {
 
   public void setRole(Role role) {
     this.role = role;
+  }
+
+  public List<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(List<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 }
