@@ -29,11 +29,6 @@ public class RestApiController {
     this.logRepository = logRepository;
   }
 
-  @GetMapping("/task/{id}")
-  public ResponseEntity<?> getTask(@PathVariable Long id) {
-    return ResponseEntity.ok(taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new));
-  }
-
   @PutMapping("/tasks")
   public ResponseEntity<?> addTask(Task task) {
     taskRepository.save(task);

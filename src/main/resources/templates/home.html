@@ -78,6 +78,10 @@
             <hr class="m-0">
             <ul class="list-unstyled p-2">
               <li th:each="task : ${tasks.get(i.index)}" class="m-2">
+                <!-- single task -->
+                <div th:id="'task_body_' + ${task.getId()}"></div>
+                <!-- ./ single task -->
+
                 <div class="card">
                   <div class="card-header" th:text="${task.getName()}"></div>
                   <div class="card-body p-0">
@@ -93,6 +97,7 @@
                           class="btn btn-primary"
                           data-toggle="modal"
                           data-target="#manageTask"
+                          th:onclick="'loadTask(' + ${task.getId()} + ')'"
                         >
                           Pokaż szczegóły zadania
                         </button>
@@ -121,89 +126,6 @@
       </div>
     </div>
   </div>
-
-  <!-- single task -->
-  <div
-    class="modal fade"
-    id="manageTask"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
-    <div
-      class="modal-dialog modal-lg modal-dialog-centered"
-      role="document"
-    >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">
-            Zadanie
-          </h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-8">
-              <div class="task-info d-flex flex-column">
-                <div class="task-info__start-date">
-                  <span class="font-weight-bold">Od: </span> <span class="start-date">10.03.12</span>
-                </div>
-                <div class="task-info__end-date">
-                  <span class="font-weight-bold">Do: </span> <span class="end-date">15.03.12</span>
-                </div>
-                <div class="task-info__assignee">
-                  <span class="font-weight-bold">Wykonawca: </span> <span class="assignee">Grzegi</span>
-                </div>
-                <div class="task-info__description">
-                  <span class="font-weight-bold">Opis:</span>
-                  <span class="description">
-                            Fajne zadanie
-                          </span>
-                </div>
-                <div class="task-info__comments d-flex flex-column">
-                  <hr>
-                  <p class="font-weight-bold">Komentarze:</p>
-                  <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
-                  <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-4">
-              <div class="buttons">
-                <button class="btn btn-success mb-2">Zmień wykonawcę</button>
-                <button class="btn btn-success">Zmień status</button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-          >
-            Zamknij
-          </button>
-          <button type="button" class="btn btn-primary">
-            Zapisz zmiany
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ./ single task -->
-
 
   <!-- add task -->
   <div
@@ -285,8 +207,9 @@
     </div>
   </div>
 </div>
-<!-- ./ add task -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script th:src="@{/js/api.js}"></script>
 </body>
 </html>

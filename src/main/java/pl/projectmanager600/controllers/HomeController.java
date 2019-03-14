@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.projectmanager600.entities.Role;
@@ -91,5 +92,13 @@ public class HomeController {
     model.addAttribute("statuses", Status.values());
 
     return "home";
+  }
+
+  @GetMapping("/tasks/{id}")
+  public String homePage(@PathVariable("id") Long id, Model model) {
+    Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
+    model.addAttribute("task", task);
+
+    return "task";
   }
 }
