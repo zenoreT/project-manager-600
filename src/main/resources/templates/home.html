@@ -9,6 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
   <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
   <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <title>Project-Manager-600</title>
 </head>
 <body>
@@ -78,10 +79,6 @@
             <hr class="m-0">
             <ul class="list-unstyled p-2">
               <li th:each="task : ${tasks.get(i.index)}" class="m-2">
-                <!-- single task -->
-                <div th:id="'task_body_' + ${task.getId()}"></div>
-                <!-- ./ single task -->
-
                 <div class="card">
                   <div class="card-header" th:text="${task.getName()}"></div>
                   <div class="card-body p-0">
@@ -126,6 +123,10 @@
       </div>
     </div>
   </div>
+
+  <!-- single task -->
+  <div id="single_task"><span>xdddd</span></div>
+  <!-- ./ single task -->
 
   <!-- add task -->
   <div
