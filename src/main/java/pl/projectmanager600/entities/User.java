@@ -1,6 +1,7 @@
 package pl.projectmanager600.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,11 @@ public class User {
 
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Comment> comments;
+
+  public User() {
+    tasks = new ArrayList<>();
+    comments = new ArrayList<>();
+  }
 
   public Long getId() {
     return id;

@@ -42,6 +42,14 @@ public class Comment {
     this.author = author;
   }
 
+  public Task getTask() {
+    return task;
+  }
+
+  public void setTask(Task task) {
+    this.task = task;
+  }
+
   public String getContent() {
     return content;
   }

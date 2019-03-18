@@ -52,9 +52,19 @@
               </div>
               <div class="task-info__comments d-flex flex-column">
                 <hr>
+                <p class="font-weight-bold">Dodaj Komentarz:</p>
+                <form th:action="@{/comments/new}" th:object="${comment}" method="POST">
+                  <input type="hidden" name="task.id" th:value="${task.id}">
+                  <textarea th:field="${comment.content}" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
+                  <button type="submit" class="btn btn-primary mt-1 ml-auto">Dodaj</button>
+                </form>
+              </div>
+              <div class="task-info__comments d-flex flex-column">
+                <hr>
                 <p class="font-weight-bold">Komentarze:</p>
-                <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
-                <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
+                <th:block th:each="comment : ${task.getComments()}">
+                  <span th:text="${comment.content}"></span>
+                </th:block>
               </div>
             </div>
 

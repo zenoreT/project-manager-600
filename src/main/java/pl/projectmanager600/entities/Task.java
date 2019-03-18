@@ -2,6 +2,7 @@ package pl.projectmanager600.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,10 @@ public class Task {
 
   @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Comment> comments;
+
+  public Task() {
+    comments = new ArrayList<>();
+  }
 
   public Long getId() {
     return id;
