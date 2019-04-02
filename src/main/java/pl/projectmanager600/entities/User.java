@@ -1,6 +1,9 @@
 package pl.projectmanager600.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +16,14 @@ public class User {
   @Column(name = "id")
   private Long id;
 
+  @NotNull
+  @Size(min=5, max=60, message = "Nazwa musi zawierać przynajmniej 5 znaków.")
   @Column(name = "username", nullable = false, unique = true)
   private String username;
 
+  @NotNull
+  @Size(min=8, max=60, message = "Hasło musi zawierać przynajmniej 8 znaków.")
+  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Hasło musi zawierać małe i duże litery oraz cyfry.")
   @Column(name = "password", nullable = false)
   private String password;
 
