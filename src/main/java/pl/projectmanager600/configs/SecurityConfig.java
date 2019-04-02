@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import javax.sql.DataSource;
 
@@ -46,7 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .clearAuthentication(true)
       .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
       .invalidateHttpSession(true)
-      .permitAll();
+      .permitAll()
+            .and()
+            .csrf()
+            .ignoringAntMatchers("/logout");
   }
 
   @Bean
