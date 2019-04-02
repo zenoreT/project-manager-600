@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class HomeController {
@@ -69,6 +70,11 @@ public class HomeController {
 
   @PostMapping("/register")
   public String registerUser(Model model, User user) {
+    Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+    boolean valid = pattern.matcher(user.getPassword()).matches();
+    if(!valid) {
+      return "redirect:/register?error";
+    }
     model.addAttribute("roles", Role.values());
 
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

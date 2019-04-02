@@ -35,6 +35,7 @@
           <p id="number" class="invalid"><b>Cyfry</b></p>
           <p id="length" class="invalid">Minimum <b>8 znaków</b></p>
         </div>
+        <div class="alert alert-danger col-xs-offset-1 col-xs-10" th:if="${param.error}">Nieprawidłowe hasło.</div>
         <div class="form-group">
           <input type="password" class="form-control" id="confirm_password" placeholder="Powtórz hasło" required>
         </div>
