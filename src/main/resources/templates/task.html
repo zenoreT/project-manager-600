@@ -1,99 +1,84 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-  <link rel="stylesheet" th:href="@{/css/style.css}"/>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <title>Project-Manager-600</title>
-</head>
-<body>
-<div
-  tabindex="-1"
-  aria-labelledby="exampleModalCenterTitle"
->
-  <div
-    class="modal-dialog modal-lg modal-dialog-centered"
-    th:object="${task}"
-  >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 th:text="${task.getName()}" class="modal-title" id="exampleModalCenterTitle"></h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-8">
-            <div class="task-info d-flex flex-column">
-              <div class="task-info__start-date">
-                <span class="font-weight-bold">Od: </span> <span th:text="${task.getStartDate()}" class="start-date"></span>
-              </div>
-              <div class="task-info__end-date">
-                <span class="font-weight-bold">Do: </span> <span th:text="${task.getDeadlineDate()}" class="end-date"></span>
-              </div>
-              <div class="task-info__assignee">
-                <span class="font-weight-bold">Wykonawca: </span> <span th:text="${task.getAssignee().getUsername()}" class="assignee"></span>
-              </div>
-              <div class="task-info__description">
-                <span class="font-weight-bold">Opis:</span>
-                <span th:text="${task.getDescription()}" class="description"></span>
-              </div>
-              <div class="task-info__comments d-flex flex-column">
-                <hr>
-                <p class="font-weight-bold">Dodaj Komentarz:</p>
-                <form th:action="@{/comments/new}" th:object="${comment}" method="POST">
-                  <input type="hidden" name="task.id" th:value="${task.id}">
-                  <textarea th:field="${comment.content}" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
-                  <button type="submit" class="btn btn-primary mt-1 ml-auto">Dodaj</button>
-                </form>
-              </div>
-              <div class="task-info__comments d-flex flex-column">
-                <hr>
-                <p class="font-weight-bold">Komentarze:</p>
-                <th:block th:each="comment : ${task.getComments()}">
-                  <span th:text="${comment.content}"></span>
-                </th:block>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-4">
-            <div class="buttons">
-              <button class="btn btn-success mb-2">Zmień wykonawcę</button>
-              <button class="btn btn-success">Zmień status</button>
-            </div>
-
-          </div>
+<!-- <div > -->
+<!-- <div class="modal-dialog modal-lg modal-dialog-centered" th:object="${task}"> -->
+<!-- <div class="w-100" th:object="${task}"> -->
+<div class="modal-header">
+  <h5
+    th:text="${task.getName()}"
+    class="modal-title"
+    id="exampleModalCenterTitle"
+  ></h5>
+  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-8">
+      <div class="task-info d-flex flex-column">
+        <div class="task-info__start-date">
+          <span class="font-weight-bold">Od: </span>
+          <span th:text="${task.getStartDate()}" class="start-date"></span>
+        </div>
+        <div class="task-info__end-date">
+          <span class="font-weight-bold">Do: </span>
+          <span th:text="${task.getDeadlineDate()}" class="end-date"></span>
+        </div>
+        <div class="task-info__assignee">
+          <span class="font-weight-bold">Wykonawca: </span>
+          <span
+            th:text="${task.getAssignee().getUsername()}"
+            class="assignee"
+          ></span>
+        </div>
+        <div class="task-info__description">
+          <span class="font-weight-bold">Opis:</span>
+          <span th:text="${task.getDescription()}" class="description"></span>
+        </div>
+        <div class="task-info__comments d-flex flex-column">
+          <hr />
+          <p class="font-weight-bold">Dodaj Komentarz:</p>
+          <form
+            th:action="@{/comments/new}"
+            th:object="${comment}"
+            method="POST"
+          >
+            <input type="hidden" name="task.id" th:value="${task.id}" />
+            <textarea
+              th:field="${comment.content}"
+              id="comments"
+              rows="5"
+              class="form-control w-100 p-1"
+            ></textarea>
+            <button type="submit" class="btn btn-primary mt-1 ml-auto">
+              Dodaj
+            </button>
+          </form>
+        </div>
+        <div class="task-info__comments d-flex flex-column">
+          <hr />
+          <p class="font-weight-bold">Komentarze:</p>
+          <th:block th:each="comment : ${task.getComments()}">
+            <span th:text="${comment.content}"></span>
+          </th:block>
         </div>
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-        >
-          Zamknij
-        </button>
-        <button type="button" class="btn btn-primary">
-          Zapisz zmiany
-        </button>
+    </div>
+    <div class="col-4">
+      <div class="buttons">
+        <button class="btn btn-success mb-2">Zmień wykonawcę</button>
+        <button class="btn btn-success">Zmień status</button>
       </div>
     </div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-</body>
-</html>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary">
+    Zamknij
+  </button>
+  <button type="button" class="btn btn-primary">
+    Zapisz zmiany
+  </button>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->

@@ -62,7 +62,7 @@
                 data-toggle="collapse"
                 data-target="#addTask"
                 aria-expanded="false"
-                aria-controls="collapseExample"
+                aria-controls="addTask"
               >
                 Dodaj zadanie
               </button>
@@ -127,7 +127,7 @@
   </div>
 
   <!-- single task -->
-  <div id="single_task"></div>
+  <div id="single_task"  ></div>
   <!-- ./ single task -->
 
   <!-- add task -->
@@ -136,7 +136,7 @@
     id="addTask"
     tabindex="-1"
     role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
+    aria-labelledby="addTask"
     aria-hidden="true"
   >
     <div
@@ -150,7 +150,7 @@
           </h5>
           <button
             type="button"
-            class="close"
+            class="close js--close-addTask"
             data-dismiss="modal"
             aria-label="Close"
           >
@@ -162,19 +162,18 @@
             <div class="col-8">
               <div class="task-info d-flex flex-column">
                 <div class="task-info__start-date">
-                  <span class="font-weight-bold">Od: </span> <span class="start-date">10.03.12</span>
+                  <span class="font-weight-bold">Od: </span> <input type="date" name="start-date" id="start-date">
                 </div>
                 <div class="task-info__end-date">
-                  <span class="font-weight-bold">Do: </span> <span class="end-date">15.03.12</span>
+                  <span class="font-weight-bold">Do: </span> <input type="date" name="end-date" id="end-date">
                 </div>
                 <div class="task-info__assignee">
-                  <span class="font-weight-bold">Wykonawca: </span> <span class="assignee">Grzegi</span>
+                  <span class="font-weight-bold">Wykonawca: <input type="text" name="asignee" id="asignee">
                 </div>
                 <div class="task-info__description">
                   <span class="font-weight-bold">Opis:</span>
-                  <span class="description">
-                            Fajne zadanie
-                          </span>
+                  <br>
+                  <textarea name="description" id="description" cols="30" rows="3"></textarea>
                 </div>
                 <div class="task-info__comments d-flex flex-column">
                   <hr>

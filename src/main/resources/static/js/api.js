@@ -1,15 +1,17 @@
-$(document).ready(function () {
+$(document).ready(function() {
+  $(".js--close-addTask").click(function() {
+    $("#addTask").removeClass("show");
+  });
 });
 
 function loadTask(id) {
   $("#single_task")
     .dialog({
-      autoOpen: false,
-      draggable: false,
+      width: 600,
+      autoOpen: true,
+      dialogClass: "test",
       modal: true,
-      resizable: false,
-      width: 750,
-      height: 750,
+      responsive: true
     })
     .load("/tasks/" + id, () => {
       $("#single_task").dialog("open");
