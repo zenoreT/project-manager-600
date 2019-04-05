@@ -71,8 +71,7 @@ public class HomeController {
   @PostMapping("/register")
   public String registerUser(Model model, User user) {
     Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-    boolean valid = pattern.matcher(user.getPassword()).matches();
-    if(!valid) {
+    if(!pattern.matcher(user.getPassword()).matches()) {
       return "redirect:/register?error";
     }
     model.addAttribute("roles", Role.values());
@@ -101,7 +100,7 @@ public class HomeController {
   }
 
   @GetMapping("/tasks/{id}")
-  public String homePage(@PathVariable("id") Long id, Model model) {
+  public String getTaskById(@PathVariable("id") Long id, Model model) {
     Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
     model.addAttribute("task", task);
     model.addAttribute("comment", new Comment());
@@ -110,29 +109,10 @@ public class HomeController {
   }
 
   @PostMapping("/tasks/new")
-  public String addTask(Task task) {
+  public String addTask(Task task, Principal principal) {
     taskRepository.save(task);
+    logRepository.save(new Log(principal.getName(), "stworzył nowe zadanie: " + task.getName()));
 
     return "redirect:/home";
-  }
-
-  @PostMapping("/comments/new")
-  public String addComment(Comment comment, Principal principal) {
-    User author = userRepository.findByUsername(principal.getName()).orElseThrow(RuntimeException::new);
-    Task task = taskRepository.findById(comment.getTask().getId()).orElseThrow(RuntimeException::new);
-
-    comment.setAuthor(author);
-    comment.setCreationDate(new Date());
-    comment.setTask(task);
-
-    commentRepository.save(comment);
-
-    return "redirect:/home";
-  }
-
-  @GetMapping("/logs")
-  public String getLogs(Model model) {
-    model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Direction.DESC, "id")));
-    return "logs";
   }
 }

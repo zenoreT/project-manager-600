@@ -168,26 +168,13 @@
                   <span class="font-weight-bold">Do: </span> <input type="date" name="end-date" id="end-date">
                 </div>
                 <div class="task-info__assignee">
-                  <span class="font-weight-bold">Wykonawca: <input type="text" name="asignee" id="asignee">
+                  <span class="font-weight-bold">Wykonawca: </span> <input type="text" name="asignee" id="asignee">
                 </div>
                 <div class="task-info__description">
                   <span class="font-weight-bold">Opis:</span>
                   <br>
                   <textarea name="description" id="description" cols="30" rows="3"></textarea>
                 </div>
-                <div class="task-info__comments d-flex flex-column">
-                  <hr>
-                  <p class="font-weight-bold">Komentarze:</p>
-                  <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
-                  <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-4">
-              <div class="buttons">
-                <button class="btn btn-success mb-2">Zmień wykonawcę</button>
-                <button class="btn btn-success">Zmień status</button>
               </div>
 
             </div>
@@ -196,7 +183,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary close js--close-addTask"
             data-dismiss="modal"
           >
             Zamknij

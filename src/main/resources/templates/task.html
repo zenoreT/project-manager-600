@@ -1,3 +1,7 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <!-- <div > -->
 <!-- <div class="modal-dialog modal-lg modal-dialog-centered" th:object="${task}"> -->
 <!-- <div class="w-100" th:object="${task}"> -->
@@ -35,31 +39,28 @@
           <span th:text="${task.getDescription()}" class="description"></span>
         </div>
         <div class="task-info__comments d-flex flex-column">
-          <hr />
+          <hr/>
           <p class="font-weight-bold">Dodaj Komentarz:</p>
-          <form
-            th:action="@{/comments/new}"
-            th:object="${comment}"
-            method="POST"
-          >
-            <input type="hidden" name="task.id" th:value="${task.id}" />
+            <input id="comment-task-id" type="hidden" name="task.id" th:value="${task.id}"/>
             <textarea
               th:field="${comment.content}"
-              id="comments"
+              id="comment-content"
               rows="5"
               class="form-control w-100 p-1"
             ></textarea>
-            <button type="submit" class="btn btn-primary mt-1 ml-auto">
+            <button
+              th:onclick="'postComment()'" type="submit" class="btn btn-primary mt-1 ml-auto">
               Dodaj
             </button>
-          </form>
         </div>
         <div class="task-info__comments d-flex flex-column">
-          <hr />
+          <hr/>
           <p class="font-weight-bold">Komentarze:</p>
-          <th:block th:each="comment : ${task.getComments()}">
-            <span th:text="${comment.content}"></span>
-          </th:block>
+          <div id="task-comments">
+            <div th:each="comment : ${task.getComments()}">
+              <span th:text="${comment.content}"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -82,3 +83,4 @@
 <!-- </div> -->
 <!-- </div> -->
 <!-- </div> -->
+</html>

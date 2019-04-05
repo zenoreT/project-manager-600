@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
       .antMatchers("/").permitAll()
       .antMatchers("/home").authenticated()
+      .antMatchers("/comments/new").authenticated()
       .antMatchers("/css/**").permitAll()
       .antMatchers("/js/**").permitAll()
       .and()
@@ -48,9 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
       .invalidateHttpSession(true)
       .permitAll()
-            .and()
-            .csrf()
-            .ignoringAntMatchers("/logout");
+      .and()
+      .csrf()
+      .ignoringAntMatchers("/logout")
+      .ignoringAntMatchers("/comments/new");
   }
 
   @Bean
