@@ -66,3 +66,14 @@ var myInput = document.getElementById("password");
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
+
+        //Name length
+        var nickname = document.getElementById("nickname");
+
+        nickname.onkeyup = function () {
+            if(nickname.value.length >= 5) {
+                nickname.setCustomValidity('');
+            } else {
+                nickname.setCustomValidity("Nazwa użytkownika powinna zawierać minimum 5 znaków");
+            }
+        }

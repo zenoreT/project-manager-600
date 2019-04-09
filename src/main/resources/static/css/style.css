@@ -3,8 +3,21 @@
   padding: 0;
 }
 
-body {
+body, html {
   height: 100%;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("https://raw.githubusercontent.com/BlackrockDigital/startbootstrap-stylish-portfolio/master/img/bg-masthead.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .vertical-center {
@@ -34,7 +47,7 @@ textarea {
 
 #message {
     display:none;
-    background: #f1f1f1;
+    //background: #f1f1f1;
     color: #000;
     position: relative;
     padding: 20px;
