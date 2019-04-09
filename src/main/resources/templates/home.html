@@ -116,7 +116,7 @@
     <div class="col-lg-3 col-md-12 action-list position-absolute p-0">
       <div class="collapse m-0" id="collapseExample">
         <div class="card card-body action-list__container" id="log-list">
-          <div class="card" th:each="log : ${logs}" style="white-space: pre-wrap">
+          <div class="card" th:each="log : ${logs}" style="white-space: pre-line">
             <div class="card-body">
               <span th:text="${log.content}"></span>
             </div>

@@ -57,12 +57,12 @@ $(document).ready(function() {
       .then(data => {
         $("#task-comments").prepend(
           "<div class='single-comment'><div class='single-comment__info'><span class='single-comment__author'>Autor: " +
-                          data.author +
-                          "</span><span class='single-comment__date'> " +
-                          test() +
-                          "</span></div><div class='single-comment__content'>" +
-                          data.content +
-                          "</div></div>"
+            data.author +
+            "</span><span class='single-comment__date'> " +
+            test() +
+            "</span></div><div class='single-comment__content'>" +
+            data.content +
+            "</div></div>"
         );
         $("#log-list").prepend(
           "<div class='card' style='white-space: pre-wrap'><div class='card-body'><span>" +
@@ -77,24 +77,28 @@ $(document).ready(function() {
   });
 
   function formatDateTime(value) {
-  const date = new Date(value);
-              return date.toLocaleDateString() +
-                " " +
-                date.getHours() +
-                ":" +
-                date.getMinutes() +
-                ":" +
-                date.getSeconds();
+    const date = new Date(value);
+    return (
+      date.toLocaleDateString() +
+      " " +
+      date.getHours() +
+      ":" +
+      (date.getMinutes()<10?'0':'') + date.getMinutes() +
+      ":" +
+      (date.getSeconds()<10?'0':'') + date.getSeconds()
+    );
   }
 
   function test() {
-  const date = new Date();
-              return date.toLocaleDateString() +
-                " " +
-                date.getHours() +
-                ":" +
-                date.getMinutes() +
-                ":" +
-                date.getSeconds();
+    const date = new Date();
+    return (
+      date.toLocaleDateString() +
+      " " +
+      date.getHours() +
+      ":" +
+      (date.getMinutes()<10?'0':'') + date.getMinutes() +
+      ":" +
+      (date.getSeconds()<10?'0':'') + date.getSeconds()
+    );
   }
 });
