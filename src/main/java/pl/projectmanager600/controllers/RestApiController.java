@@ -1,9 +1,11 @@
 package pl.projectmanager600.controllers;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.projectmanager600.entities.Comment;
@@ -37,6 +39,13 @@ public class RestApiController {
     this.logRepository = logRepository;
   }
 
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<?> getTaskById(@PathVariable("id") Long id) {
+        Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
+
+        return ResponseEntity.ok().body(Collections.singletonMap("task", task));
+    }
+
   @PostMapping("/comments/new")
   public ResponseEntity<?> addComment(String content, Long taskId, Principal principal) {
     User author = userRepository.findByUsername(principal.getName()).orElseThrow(RuntimeException::new);
@@ -49,9 +58,10 @@ public class RestApiController {
     comment.setTask(task);
 
     commentRepository.save(comment);
-    logRepository.save(new Log(principal.getName(), "stworzył nowy komentarz o treści: " + content + ", do zadania: " + task.getName()));
+    Log log = new Log(principal.getName(), "stworzył nowy komentarz o treści: " + content + ".\n" + task.getName());
+    logRepository.save(log);
 
-    return ResponseEntity.ok().body(Collections.singletonMap("comment", content));
+    return ResponseEntity.ok().body(new JSONObject().put("content", comment.getContent()).put("author", comment.getAuthor().getUsername()).put("creationDate", comment.getCreationDate()).put("log", log.getContent()).toString());
   }
 
   @GetMapping("/logs")

@@ -77,3 +77,18 @@ textarea {
 .show {
   display: block;
 }
+
+.single-comment {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.single-comment__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: 0.8em;
+}

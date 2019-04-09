@@ -79,7 +79,7 @@ public class HomeController {
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     userRepository.save(user);
 
-    return "register";
+    return "redirect:/home";
   }
 
   @GetMapping("/home")
@@ -93,23 +93,18 @@ public class HomeController {
     tasks.add(inProgressTasks);
     tasks.add(doneTasks);
 
+    model.addAttribute("task", new Task());
+    model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Order.desc("id"))));
     model.addAttribute("tasks", tasks);
     model.addAttribute("statuses", Status.values());
 
     return "home";
   }
 
-  @GetMapping("/tasks/{id}")
-  public String getTaskById(@PathVariable("id") Long id, Model model) {
-    Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
-    model.addAttribute("task", task);
-    model.addAttribute("comment", new Comment());
-
-    return "task";
-  }
-
   @PostMapping("/tasks/new")
   public String addTask(Task task, Principal principal) {
+    task.setAssignee(userRepository.findByUsername(task.getAssignee().getUsername()).orElseThrow(RuntimeException::new));
+    task.setStatus(Status.TO_DO);
     taskRepository.save(task);
     logRepository.save(new Log(principal.getName(), "stworzył nowe zadanie: " + task.getName()));
 

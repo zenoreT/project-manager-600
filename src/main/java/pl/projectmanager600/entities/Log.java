@@ -16,12 +16,14 @@ public class Log {
   @Column(name = "content", nullable = false)
   private String content;
 
+  public Log() {}
+
   public Log(String username, String content) {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String formattedDateTime = dateTime.format(formatter);
 
-    this.content = formattedDateTime + ": użytkownik " + username + " " + content;
+    this.content = "Użytkownik " + username + " " + content + ", " + formattedDateTime;
   }
 
   public Long getId() {
