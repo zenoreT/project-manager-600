@@ -28,6 +28,7 @@
           <label for="password">Hasło</label>
           <input type="password" th:field="${user.password}" class="form-control" id="password" placeholder="Wprowadź hasło" autocomplete="new-password" required>
         </div>
+        <div class="alert alert-danger col-xs-offset-1 col-xs-10" th:if="${param.error}">Nieprawidłowe hasło.</div>
         <div class="form-group">
           <input type="password" class="form-control" id="confirm_password" placeholder="Powtórz hasło" required>
         </div>
@@ -41,6 +42,8 @@
         </div>
         <button type="submit" class="btn btn-primary" id="register">Zarejestruj się</button>
       </form>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" th:href="@{/login}">Masz już konto? Zaloguj się</a>
     </div>
     <div class="col-4"><div class="border rounded" id="message">
       <b>Hasło powinno zawierać:</b>

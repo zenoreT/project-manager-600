@@ -1,6 +1,11 @@
 package pl.projectmanager600.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +18,14 @@ public class User {
   @Column(name = "id")
   private Long id;
 
+  @NotNull
+  @Size(min=5, max=60, message = "Nazwa musi zawierać przynajmniej 5 znaków.")
   @Column(name = "username", nullable = false, unique = true)
   private String username;
 
+  @JsonIgnore
+  @NotNull
+  @Size(min=8, max=60, message = "Hasło musi zawierać przynajmniej 8 znaków.")
   @Column(name = "password", nullable = false)
   private String password;
 
@@ -23,9 +33,11 @@ public class User {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  @JsonBackReference
   @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Task> tasks;
 
+  @JsonBackReference
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Comment> comments;
 

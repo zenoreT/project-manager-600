@@ -62,7 +62,7 @@
                 data-toggle="collapse"
                 data-target="#addTask"
                 aria-expanded="false"
-                aria-controls="collapseExample"
+                aria-controls="addTask"
               >
                 Dodaj zadanie
               </button>
@@ -93,10 +93,10 @@
                         </div>
                         <div th:if="${task.getEndDate()}">Zakończono: <span th:text="${task.getEndDate()}"></span></div>
                         <button
-                          class="btn btn-primary"
+                          class="btn btn-primary js--single-task"
                           data-toggle="modal"
-                          data-target="#manageTask"
-                          th:onclick="'loadTask(' + ${task.getId()} + ')'"
+                          data-target="#singleTask"
+                          th:data-task-id="${task.getId()}"
                         >
                           Pokaż szczegóły zadania
                         </button>
@@ -115,10 +115,10 @@
     </th:block>
     <div class="col-lg-3 col-md-12 action-list position-absolute p-0">
       <div class="collapse m-0" id="collapseExample">
-        <div class="card card-body action-list__container">
-          <div class="card">
+        <div class="card card-body action-list__container" id="log-list">
+          <div class="card" th:each="log : ${logs}" style="white-space: pre-wrap">
             <div class="card-body">
-              This is some text within a card body.
+              <span th:text="${log.content}"></span>
             </div>
           </div>
         </div>
@@ -127,7 +127,84 @@
   </div>
 
   <!-- single task -->
-  <div id="single_task"></div>
+  <div
+          class="modal fade"
+          id="singleTask"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="addTask"
+          aria-hidden="true"
+  >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+                    class="modal-title"
+                    id="task-title"
+            ></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-8">
+                <div class="task-info d-flex flex-column">
+                  <div class="task-info__start-date">
+                    <span class="font-weight-bold">Od: </span>
+                    <span id="task-startDate" class="start-date"></span>
+                  </div>
+                  <div class="task-info__deadline-date">
+                    <span class="font-weight-bold">Do: </span>
+                    <span id="task-deadlineDate" class="deadline-date"></span>
+                  </div>
+                  <div class="task-info__assignee">
+                    <span class="font-weight-bold">Wykonawca: </span>
+                    <span id="task-assignee" class="assignee"></span>
+                  </div>
+                  <div class="task-info__description">
+                    <span class="font-weight-bold">Opis:</span>
+                    <span id="task-description" class="description"></span>
+                  </div>
+                  <div class="task-info__comments d-flex flex-column">
+                    <hr/>
+                    <p class="font-weight-bold">Dodaj Komentarz:</p>
+                    <textarea 
+                            id="comment-content"
+                            rows="5"
+                            class="form-control w-100 p-1"
+                    ></textarea>
+                    <button id="task-add-comment" type="submit" class="btn btn-primary mt-1 ml-auto">
+                      Dodaj
+                    </button>
+                  </div>
+                  <div class="task-info__comments d-flex flex-column">
+                    <hr/>
+                    <p class="font-weight-bold">Komentarze:</p>
+                    <div id="task-comments">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="buttons">
+                  <button class="btn btn-success mb-2">Zmień wykonawcę</button>
+                  <button class="btn btn-success">Zmień status</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary">
+              Zamknij
+            </button>
+            <button type="button" class="btn btn-primary">
+              Zapisz zmiany
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
   <!-- ./ single task -->
 
   <!-- add task -->
@@ -136,7 +213,7 @@
     id="addTask"
     tabindex="-1"
     role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
+    aria-labelledby="addTask"
     aria-hidden="true"
   >
     <div
@@ -150,7 +227,7 @@
           </h5>
           <button
             type="button"
-            class="close"
+            class="close js--close-addTask"
             data-dismiss="modal"
             aria-label="Close"
           >
@@ -161,34 +238,28 @@
           <div class="row">
             <div class="col-8">
               <div class="task-info d-flex flex-column">
+                <form th:action="@{/tasks/new}" th:object="${task}" method="POST">
+                  <div class="task-info__name">
+                    <span class="font-weight-bold">Nazwa: </span> <input th:field="${task.name}"  type="text" name="name" id="name">
+                  </div>
                 <div class="task-info__start-date">
-                  <span class="font-weight-bold">Od: </span> <span class="start-date">10.03.12</span>
+                  <span class="font-weight-bold">Od: </span> <input th:field="${task.startDate}"  type="date" name="start-date" id="start-date">
                 </div>
                 <div class="task-info__end-date">
-                  <span class="font-weight-bold">Do: </span> <span class="end-date">15.03.12</span>
+                  <span class="font-weight-bold">Do: </span> <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date">
                 </div>
                 <div class="task-info__assignee">
-                  <span class="font-weight-bold">Wykonawca: </span> <span class="assignee">Grzegi</span>
+                  <span class="font-weight-bold">Wykonawca: </span> <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee">
                 </div>
                 <div class="task-info__description">
                   <span class="font-weight-bold">Opis:</span>
-                  <span class="description">
-                            Fajne zadanie
-                          </span>
+                  <br>
+                  <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3"></textarea>
                 </div>
-                <div class="task-info__comments d-flex flex-column">
-                  <hr>
-                  <p class="font-weight-bold">Komentarze:</p>
-                  <textarea name="comments" id="comments" rows="5" class="form-control w-100 p-1"></textarea>
-                  <button class="btn btn-primary mt-1 ml-auto">Dodaj</button>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-4">
-              <div class="buttons">
-                <button class="btn btn-success mb-2">Zmień wykonawcę</button>
-                <button class="btn btn-success">Zmień status</button>
+                  <button type="submit" class="btn btn-primary">
+                    Zapisz zmiany
+                  </button>
+                </form>
               </div>
 
             </div>
@@ -197,7 +268,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary close"
             data-dismiss="modal"
           >
             Zamknij

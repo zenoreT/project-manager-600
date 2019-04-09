@@ -1,5 +1,9 @@
 package pl.projectmanager600.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,10 +16,12 @@ public class Comment {
   @Column(name = "id")
   private Long id;
 
+  @JsonManagedReference
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "author_id")
   private User author;
 
+  @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "task_id")
   private Task task;

@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class HomeController {
@@ -69,12 +70,16 @@ public class HomeController {
 
   @PostMapping("/register")
   public String registerUser(Model model, User user) {
+    Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+    if(!pattern.matcher(user.getPassword()).matches()) {
+      return "redirect:/register?error";
+    }
     model.addAttribute("roles", Role.values());
 
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     userRepository.save(user);
 
-    return "register";
+    return "redirect:/home";
   }
 
   @GetMapping("/home")
@@ -88,45 +93,21 @@ public class HomeController {
     tasks.add(inProgressTasks);
     tasks.add(doneTasks);
 
+    model.addAttribute("task", new Task());
+    model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Order.desc("id"))));
     model.addAttribute("tasks", tasks);
     model.addAttribute("statuses", Status.values());
 
     return "home";
   }
 
-  @GetMapping("/tasks/{id}")
-  public String homePage(@PathVariable("id") Long id, Model model) {
-    Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
-    model.addAttribute("task", task);
-    model.addAttribute("comment", new Comment());
-
-    return "task";
-  }
-
   @PostMapping("/tasks/new")
-  public String addTask(Task task) {
+  public String addTask(Task task, Principal principal) {
+    task.setAssignee(userRepository.findByUsername(task.getAssignee().getUsername()).orElseThrow(RuntimeException::new));
+    task.setStatus(Status.TO_DO);
     taskRepository.save(task);
+    logRepository.save(new Log(principal.getName(), "stworzył nowe zadanie: " + task.getName()));
 
     return "redirect:/home";
-  }
-
-  @PostMapping("/comments/new")
-  public String addComment(Comment comment, Principal principal) {
-    User author = userRepository.findByUsername(principal.getName()).orElseThrow(RuntimeException::new);
-    Task task = taskRepository.findById(comment.getTask().getId()).orElseThrow(RuntimeException::new);
-
-    comment.setAuthor(author);
-    comment.setCreationDate(new Date());
-    comment.setTask(task);
-
-    commentRepository.save(comment);
-
-    return "redirect:/home";
-  }
-
-  @GetMapping("/logs")
-  public String getLogs(Model model) {
-    model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Direction.DESC, "id")));
-    return "logs";
   }
 }

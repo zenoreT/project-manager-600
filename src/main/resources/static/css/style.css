@@ -47,7 +47,6 @@ textarea {
 
 #message {
     display:none;
-    //background: #f1f1f1;
     color: #000;
     position: relative;
     padding: 20px;
@@ -56,27 +55,52 @@ textarea {
 }
 
 #message p {
-    padding: 10px 35px;
-
+  padding: 10px 35px;
 }
 
 .valid {
-    color: green;
+  color: green;
 }
 
 .valid:before {
-    position: relative;
-    left: -35px;
-    content: "✔";
+  position: relative;
+  left: -35px;
+  content: "✔";
 }
 
 /* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
-    color: red;
+  color: red;
 }
 
 .invalid:before {
-    position: relative;
-    left: -35px;
-    content: "✖";
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+
+.ui-dialog {
+  max-height: 700px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.show {
+  display: block;
+}
+
+.single-comment {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.single-comment__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: 0.8em;
 }

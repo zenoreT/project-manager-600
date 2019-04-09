@@ -1,5 +1,8 @@
 package pl.projectmanager600.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class Task {
   @JoinColumn(name = "assignee_id")
   private User assignee;
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Comment> comments;
 
