@@ -128,82 +128,101 @@
 
   <!-- single task -->
   <div
-          class="modal fade"
-          id="singleTask"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="addTask"
-          aria-hidden="true"
+    class="modal fade"
+    id="singleTask"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addTask"
+    aria-hidden="true"
   >
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5
-                    class="modal-title"
-                    id="task-title"
-            ></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-8">
-                <div class="task-info d-flex flex-column">
-                  <div class="task-info__start-date">
-                    <span class="font-weight-bold">Od: </span>
-                    <span id="task-startDate" class="start-date"></span>
-                  </div>
-                  <div class="task-info__deadline-date">
-                    <span class="font-weight-bold">Do: </span>
-                    <span id="task-deadlineDate" class="deadline-date"></span>
-                  </div>
-                  <div class="task-info__assignee">
-                    <span class="font-weight-bold">Wykonawca: </span>
-                    <span id="task-assignee" class="assignee"></span>
-                  </div>
-                  <div class="task-info__description">
-                    <span class="font-weight-bold">Opis:</span>
-                    <span id="task-description" class="description"></span>
-                  </div>
-                  <div class="task-info__comments d-flex flex-column">
-                    <hr/>
-                    <p class="font-weight-bold">Dodaj Komentarz:</p>
-                    <textarea 
-                            id="comment-content"
-                            rows="5"
-                            class="form-control w-100 p-1"
-                    ></textarea>
-                    <button id="task-add-comment" type="submit" class="btn btn-primary mt-1 ml-auto">
-                      Dodaj
-                    </button>
-                  </div>
-                  <div class="task-info__comments d-flex flex-column">
-                    <hr/>
-                    <p class="font-weight-bold">Komentarze:</p>
-                    <div id="task-comments">
-                    </div>
-                  </div>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5
+            class="modal-title"
+            id="task-title"
+          ></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-8">
+              <div class="task-info d-flex flex-column">
+                <div class="task-info__start-date">
+                  <span class="font-weight-bold">Od: </span>
+                  <span id="task-startDate" class="start-date"></span>
                 </div>
-              </div>
-              <div class="col-4">
-                <div class="buttons">
-                  <button class="btn btn-success mb-2">Zmień wykonawcę</button>
-                  <button class="btn btn-success">Zmień status</button>
+                <div class="task-info__deadline-date">
+                  <span class="font-weight-bold">Do: </span>
+                  <span id="task-deadlineDate" class="deadline-date"></span>
+                </div>
+                <div class="task-info__assignee">
+                  <span class="font-weight-bold">Wykonawca: </span>
+                  <span id="task-assignee" class="assignee"></span>
+                </div>
+                <div class="task-info__description">
+                  <span class="font-weight-bold">Opis:</span>
+                  <span id="task-description" class="description"></span>
+                </div>
+                <div class="task-info__comments d-flex flex-column">
+                  <hr/>
+                  <p class="font-weight-bold">Dodaj Komentarz:</p>
+                  <textarea
+                    id="comment-content"
+                    rows="5"
+                    class="form-control w-100 p-1"
+                  ></textarea>
+                  <button id="task-add-comment" type="submit" class="btn btn-primary mt-1 ml-auto">
+                    Dodaj
+                  </button>
+                </div>
+                <div class="task-info__comments d-flex flex-column">
+                  <hr/>
+                  <p class="font-weight-bold">Komentarze:</p>
+                  <div id="task-comments">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary">
-              Zamknij
-            </button>
-            <button type="button" class="btn btn-primary">
-              Zapisz zmiany
-            </button>
+            <div class="col-4">
+              <div class="buttons">
+                <form th:action="@{/tasks/changeAssignee}" method="POST">
+                  <input type="hidden" class="task-id" name="id"/>
+                  <input name="username" type="text"/>
+                  <button class="btn btn-success mb-2">Zmień wykonawcę</button>
+                </form>
+                <form th:action="@{/tasks/changeStatus}" method="POST">
+                  <input type="hidden" class="task-id" name="id"/>
+                  <select
+                    name="status"
+                    class="browser-default custom-select"
+                    id="role"
+                  >
+                    <option
+                      th:each="status : ${statuses}"
+                      th:value="${status}"
+                      th:text="${status.getName()}"
+                    >
+                    </option>
+                  </select>
+                  <button class="btn btn-success">Zmień status</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary">
+            Zamknij
+          </button>
+          <button type="button" class="btn btn-primary">
+            Zapisz zmiany
+          </button>
+        </div>
       </div>
+    </div>
   </div>
   <!-- ./ single task -->
 
@@ -240,22 +259,22 @@
               <div class="task-info d-flex flex-column">
                 <form th:action="@{/tasks/new}" th:object="${task}" method="POST">
                   <div class="task-info__name">
-                    <span class="font-weight-bold">Nazwa: </span> <input th:field="${task.name}"  type="text" name="name" id="name">
+                    <span class="font-weight-bold">Nazwa: </span> <input th:field="${task.name}" type="text" name="name" id="name">
                   </div>
-                <div class="task-info__start-date">
-                  <span class="font-weight-bold">Od: </span> <input th:field="${task.startDate}"  type="date" name="start-date" id="start-date">
-                </div>
-                <div class="task-info__end-date">
-                  <span class="font-weight-bold">Do: </span> <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date">
-                </div>
-                <div class="task-info__assignee">
-                  <span class="font-weight-bold">Wykonawca: </span> <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee">
-                </div>
-                <div class="task-info__description">
-                  <span class="font-weight-bold">Opis:</span>
-                  <br>
-                  <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3"></textarea>
-                </div>
+                  <div class="task-info__start-date">
+                    <span class="font-weight-bold">Od: </span> <input th:field="${task.startDate}" type="date" name="start-date" id="start-date">
+                  </div>
+                  <div class="task-info__end-date">
+                    <span class="font-weight-bold">Do: </span> <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date">
+                  </div>
+                  <div class="task-info__assignee">
+                    <span class="font-weight-bold">Wykonawca: </span> <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee">
+                  </div>
+                  <div class="task-info__description">
+                    <span class="font-weight-bold">Opis:</span>
+                    <br>
+                    <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3"></textarea>
+                  </div>
                   <button type="submit" class="btn btn-primary">
                     Zapisz zmiany
                   </button>

@@ -1,40 +1,65 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
 >
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-  <link rel="stylesheet" th:href="@{/css/style.css}"/>
-  <title>Project-Manager-600</title>
-</head>
-<body>
-
-<div class="container-fluid">
-  <div class="row vertical-center">
-    <div class="col-4"></div>
-    <div class="col-4 border p-4">
-      <form th:action="@{/login}" method="POST" class="px-4 py-3 center-login">
-        <div class="alert alert-danger col-xs-offset-1 col-xs-10" th:if="${param.error}">Nieprawidłowy login i/lub hasło</div>
-        <div class="form-group">
-          <label for="exampleDropdownFormEmail1">Login</label>
-          <input type="text" name="username" class="form-control" id="exampleDropdownFormEmail1" placeholder="Login">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Project-Manager-600</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row vertical-center">
+        <div class="col-4"></div>
+        <div class="col-4 border p-4">
+          <form
+            th:action="@{/login}"
+            method="POST"
+            class="px-4 py-3 center-login"
+          >
+            <div
+              class="alert alert-danger col-xs-offset-1 col-xs-10"
+              th:if="${param.error}"
+            >
+              Nieprawidłowy login i/lub hasło
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">Login</label>
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                id="exampleDropdownFormEmail1"
+                placeholder="Login"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormPassword1">Hasło</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="exampleDropdownFormPassword1"
+                placeholder="Wprowadź hasło"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Zaloguj się</button>
+          </form>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" th:href="@{/register}"
+            >Nie masz jeszcze konta? Zarejestruj się</a
+          >
         </div>
-        <div class="form-group">
-          <label for="exampleDropdownFormPassword1">Hasło</label>
-          <input type="password" name="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Wprowadź hasło">
-        </div>
-        <button type="submit" class="btn btn-primary">Zaloguj się</button>
-      </form>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" th:href="@{/register}">Nie masz jeszcze konta? Zarejestruj się</a>
+        <div class="col-4"></div>
+      </div>
     </div>
-    <div class="col-4"></div>
-  </div>
-</div>
-</body>
+  </body>
 </html>

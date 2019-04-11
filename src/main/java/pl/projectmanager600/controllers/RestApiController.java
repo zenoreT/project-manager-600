@@ -18,6 +18,7 @@ import pl.projectmanager600.repositories.TaskRepository;
 import pl.projectmanager600.repositories.UserRepository;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -39,12 +40,12 @@ public class RestApiController {
     this.logRepository = logRepository;
   }
 
-    @GetMapping("/tasks/{id}")
-    public ResponseEntity<?> getTaskById(@PathVariable("id") Long id) {
-        Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
+  @GetMapping("/tasks/{id}")
+  public ResponseEntity<?> getTaskById(@PathVariable("id") Long id) {
+    Task task = taskRepository.findWithCommentsById(id).orElseThrow(RuntimeException::new);
 
-        return ResponseEntity.ok().body(Collections.singletonMap("task", task));
-    }
+    return ResponseEntity.ok().body(Collections.singletonMap("task", task));
+  }
 
   @PostMapping("/comments/new")
   public ResponseEntity<?> addComment(String content, Long taskId, Principal principal) {
@@ -61,7 +62,9 @@ public class RestApiController {
     Log log = new Log(principal.getName(), "stworzył nowy komentarz o treści: " + content + ".\n" + task.getName());
     logRepository.save(log);
 
-    return ResponseEntity.ok().body(new JSONObject().put("content", comment.getContent()).put("author", comment.getAuthor().getUsername()).put("creationDate", comment.getCreationDate()).put("log", log.getContent()).toString());
+    return ResponseEntity.ok()
+      .body(new JSONObject().put("content", comment.getContent()).put("author", comment.getAuthor().getUsername())
+        .put("creationDate", comment.getCreationDate()).put("log", log.getContent()).toString());
   }
 
   @GetMapping("/logs")

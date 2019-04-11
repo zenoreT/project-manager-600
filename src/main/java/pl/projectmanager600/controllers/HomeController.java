@@ -6,7 +6,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.projectmanager600.entities.*;
@@ -17,9 +16,10 @@ import pl.projectmanager600.repositories.UserRepository;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import javax.validation.ConstraintViolationException;
 
 @Controller
 public class HomeController {
@@ -32,8 +32,7 @@ public class HomeController {
 
   @Autowired
   public HomeController(UserRepository userRepository, TaskRepository taskRepository,
-                        CommentRepository commentRepository, LogRepository logRepository,
-                        BCryptPasswordEncoder bCryptPasswordEncoder) {
+      CommentRepository commentRepository, LogRepository logRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
     this.userRepository = userRepository;
     this.taskRepository = taskRepository;
@@ -71,15 +70,20 @@ public class HomeController {
   @PostMapping("/register")
   public String registerUser(Model model, User user) {
     Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-    if(!pattern.matcher(user.getPassword()).matches()) {
+    if (!pattern.matcher(user.getPassword()).matches()) {
       return "redirect:/register?error";
     }
     model.addAttribute("roles", Role.values());
 
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-    userRepository.save(user);
 
-    return "redirect:/home";
+    try {
+      userRepository.save(user);
+    } catch (Exception e) {
+      return "redirect:/register?error";
+    }
+
+    return "redirect:/login";
   }
 
   @GetMapping("/home")
@@ -103,10 +107,34 @@ public class HomeController {
 
   @PostMapping("/tasks/new")
   public String addTask(Task task, Principal principal) {
-    task.setAssignee(userRepository.findByUsername(task.getAssignee().getUsername()).orElseThrow(RuntimeException::new));
+    task.setAssignee(
+        userRepository.findByUsername(task.getAssignee().getUsername()).orElseThrow(RuntimeException::new));
     task.setStatus(Status.TO_DO);
     taskRepository.save(task);
     logRepository.save(new Log(principal.getName(), "stworzył nowe zadanie: " + task.getName()));
+
+    return "redirect:/home";
+  }
+
+  @PostMapping("/tasks/changeAssignee")
+  public String addTask(Long id, String username, Principal principal) {
+    Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+    User assignee = userRepository.findByUsername(username).orElseThrow(RuntimeException::new);
+    task.setAssignee(assignee);
+
+    taskRepository.save(task);
+    logRepository.save(new Log(principal.getName(), "zmienił osobę odpowiedzialną za zadanie: " + task.getName() + ", na: " + assignee.getUsername()));
+
+    return "redirect:/home";
+  }
+
+  @PostMapping("/tasks/changeStatus")
+  public String addTask(Long id, Status status, Principal principal) {
+    Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+    task.setStatus(status);
+
+    taskRepository.save(task);
+    logRepository.save(new Log(principal.getName(), "zmienił status zadania: " + task.getName() + ", na: " + status.getName()));
 
     return "redirect:/home";
   }
