@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,26 +18,26 @@ import pl.projectmanager600.repositories.UserRepository;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 @Controller
 public class HomeController {
 
   private final UserRepository userRepository;
   private final TaskRepository taskRepository;
-  private final CommentRepository commentRepository;
   private final LogRepository logRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
   public HomeController(UserRepository userRepository, TaskRepository taskRepository,
-      CommentRepository commentRepository, LogRepository logRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+                        LogRepository logRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
     this.userRepository = userRepository;
     this.taskRepository = taskRepository;
-    this.commentRepository = commentRepository;
     this.logRepository = logRepository;
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
@@ -68,7 +69,10 @@ public class HomeController {
   }
 
   @PostMapping("/register")
-  public String registerUser(Model model, User user) {
+  public String registerUser(User user, Model model, BindingResult bindingResult) {
+    if(bindingResult.hasErrors()) {
+      return "register";
+    }
     Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
     if (!pattern.matcher(user.getPassword()).matches()) {
       return "redirect:/register?error";
@@ -107,8 +111,11 @@ public class HomeController {
 
   @PostMapping("/tasks/new")
   public String addTask(Task task, Principal principal) {
-    task.setAssignee(
-        userRepository.findByUsername(task.getAssignee().getUsername()).orElseThrow(RuntimeException::new));
+    Optional<User> assignee = userRepository.findByUsername(task.getAssignee().getUsername());
+    if(!assignee.isPresent()) {
+      return "/error";
+    }
+    task.setAssignee(assignee.get());
     task.setStatus(Status.TO_DO);
     taskRepository.save(task);
     logRepository.save(new Log(principal.getName(), "stworzył nowe zadanie: " + task.getName()));
@@ -118,8 +125,13 @@ public class HomeController {
 
   @PostMapping("/tasks/changeAssignee")
   public String addTask(Long id, String username, Principal principal) {
-    Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
-    User assignee = userRepository.findByUsername(username).orElseThrow(RuntimeException::new);
+    Optional<Task> taskOptional = taskRepository.findById(id);
+    Optional<User> assigneeOptional = userRepository.findByUsername(username);
+    if(!taskOptional.isPresent() || !assigneeOptional.isPresent()) {
+      return "/error";
+    }
+    Task task = taskOptional.get();
+    User assignee = assigneeOptional.get();
     task.setAssignee(assignee);
 
     taskRepository.save(task);
@@ -130,7 +142,11 @@ public class HomeController {
 
   @PostMapping("/tasks/changeStatus")
   public String addTask(Long id, Status status, Principal principal) {
-    Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+    Optional<Task> taskOptional = taskRepository.findById(id);
+    if(!taskOptional.isPresent()) {
+      return "/error";
+    }
+    Task task = taskOptional.get();
     task.setStatus(status);
 
     taskRepository.save(task);

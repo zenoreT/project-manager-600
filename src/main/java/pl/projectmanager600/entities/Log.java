@@ -23,7 +23,7 @@ public class Log {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String formattedDateTime = dateTime.format(formatter);
 
-    this.content = "Użytkownik " + username + " " + content + ", " + formattedDateTime;
+    this.content = "Użytkownik " + username + " " + content + ".\n" + formattedDateTime;
   }
 
   public Long getId() {

@@ -43,6 +43,7 @@
                 autocomplete="off"
                 required
               />
+              <p th:errors="*{username}" th:class="${#fields.hasErrors('username')}? error"></p>
             </div>
             <div class="form-group">
               <label for="password">Hasło</label>
@@ -55,12 +56,7 @@
                 autocomplete="new-password"
                 required
               />
-            </div>
-            <div
-              class="alert alert-danger col-xs-offset-1 col-xs-10"
-              th:if="${param.error}"
-            >
-              Nieprawidłowe hasło.
+              <p th:errors="*{password}" th:class="${#fields.hasErrors('password')}? error"></p>
             </div>
             <div class="form-group">
               <input
@@ -86,6 +82,7 @@
                 >
                 </option>
               </select>
+              <p th:errors="*{role}" th:class="${#fields.hasErrors('role')}? error"></p>
             </div>
             <button type="submit" class="btn btn-primary" id="register">
               Zarejestruj się

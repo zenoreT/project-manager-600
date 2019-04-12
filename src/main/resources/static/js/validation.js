@@ -1,21 +1,19 @@
-var myInput = document.getElementById("password");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
+const myInput = document.getElementById("password");
+const letter = document.getElementById("letter");
+const capital = document.getElementById("capital");
+const number = document.getElementById("number");
+const length = document.getElementById("length");
 
-myInput.onfocus = function() {
+myInput.onfocus = function () {
   document.getElementById("message").style.display = "block";
 };
 
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
+myInput.onblur = function () {
   document.getElementById("message").style.display = "none";
 };
 
-myInput.onkeyup = function() {
-  // Validate lowercase letters
-  var lowerCaseLetters = /[a-z]/g;
+myInput.onkeyup = function () {
+  const lowerCaseLetters = /[a-z]/g;
   if (myInput.value.match(lowerCaseLetters)) {
     letter.classList.remove("invalid");
     letter.classList.add("valid");
@@ -24,8 +22,7 @@ myInput.onkeyup = function() {
     letter.classList.add("invalid");
   }
 
-  // Validate capital letters
-  var upperCaseLetters = /[A-Z]/g;
+  const upperCaseLetters = /[A-Z]/g;
   if (myInput.value.match(upperCaseLetters)) {
     capital.classList.remove("invalid");
     capital.classList.add("valid");
@@ -34,8 +31,7 @@ myInput.onkeyup = function() {
     capital.classList.add("invalid");
   }
 
-  // Validate numbers
-  var numbers = /[0-9]/g;
+  const numbers = /[0-9]/g;
   if (myInput.value.match(numbers)) {
     number.classList.remove("invalid");
     number.classList.add("valid");
@@ -43,7 +39,6 @@ myInput.onkeyup = function() {
     number.classList.remove("valid");
     number.classList.add("invalid");
   }
-  // Validate length
   if (myInput.value.length >= 8) {
     length.classList.remove("invalid");
     length.classList.add("valid");
@@ -52,14 +47,17 @@ myInput.onkeyup = function() {
     length.classList.add("invalid");
   }
 };
-//Confirm password
-var password = document.getElementById("password"),
-  confirm_password = document.getElementById("confirm_password");
-//Validate passwords match
+const password = document.getElementById("password");
+const confirm_password = document.getElementById("confirm_password");
+
 function validatePassword() {
-  if (password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
+  console.log(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g));
+  if (password.value !== confirm_password.value) {
+    confirm_password.setCustomValidity("Podane hasła nie są takie same");
+  } else if (!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g)) {
+    password.setCustomValidity("Podane hasło nie składa się z wymaganych znaków");
   } else {
+    password.setCustomValidity("");
     confirm_password.setCustomValidity("");
   }
 }
@@ -67,10 +65,9 @@ function validatePassword() {
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
-//Name length
-var nickname = document.getElementById("nickname");
+const nickname = document.getElementById("nickname");
 
-nickname.onkeyup = function() {
+nickname.onkeyup = function () {
   if (nickname.value.length >= 5) {
     nickname.setCustomValidity("");
   } else {
