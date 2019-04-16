@@ -16,6 +16,7 @@ import pl.projectmanager600.repositories.TaskRepository;
 import pl.projectmanager600.repositories.UserRepository;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +110,25 @@ public class HomeController {
     return "home";
   }
 
+  @GetMapping("/my-tasks")
+  public String myHomePage(Model model, Principal principal) {
+    List<Task> toDoTasks = taskRepository.findAssigneesTasksByStatus(Status.TO_DO, principal.getName());
+    List<Task> inProgressTasks = taskRepository.findAssigneesTasksByStatus(Status.IN_PROGRESS, principal.getName());
+    List<Task> doneTasks = taskRepository.findAssigneesTasksByStatus(Status.DONE, principal.getName());
+
+    List<List<Task>> tasks = new ArrayList<>();
+    tasks.add(toDoTasks);
+    tasks.add(inProgressTasks);
+    tasks.add(doneTasks);
+
+    model.addAttribute("task", new Task());
+    model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Order.desc("id"))));
+    model.addAttribute("tasks", tasks);
+    model.addAttribute("statuses", Status.values());
+
+    return "home";
+  }
+
   @PostMapping("/tasks/new")
   public String addTask(Task task, Principal principal) {
     Optional<User> assignee = userRepository.findByUsername(task.getAssignee().getUsername());
@@ -141,13 +161,16 @@ public class HomeController {
   }
 
   @PostMapping("/tasks/changeStatus")
-  public String addTask(Long id, Status status, Principal principal) {
+  public String addTask(Long id, Status status, String date, Principal principal) {
     Optional<Task> taskOptional = taskRepository.findById(id);
     if(!taskOptional.isPresent()) {
       return "/error";
     }
     Task task = taskOptional.get();
     task.setStatus(status);
+    if(status == Status.DONE && !date.isEmpty()) {
+      task.setEndDate(Date.valueOf(date));
+    }
 
     taskRepository.save(task);
     logRepository.save(new Log(principal.getName(), "zmienił status zadania: " + task.getName() + ", na: " + status.getName()));

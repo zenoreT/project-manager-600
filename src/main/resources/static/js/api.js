@@ -24,6 +24,7 @@ $(document).ready(function () {
         }
         $("#task-assignee").text(task.assignee.username);
         $("#task-description").text(task.description);
+        $("#comment-content").val("");
         if (task.comments && Array.isArray(task.comments)) {
           task.comments.forEach(comment => {
             $("#task-comments").prepend(
@@ -44,6 +45,7 @@ $(document).ready(function () {
   $("#task-add-comment").click(function () {
     const taskId = $(this).attr("data-task-id");
     const content = $("#comment-content").val();
+    $("#comment-content").val("");
 
     const formData = new FormData();
 
