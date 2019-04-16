@@ -102,6 +102,7 @@ public class HomeController {
     tasks.add(inProgressTasks);
     tasks.add(doneTasks);
 
+    model.addAttribute("users", userRepository.findAllUsernames());
     model.addAttribute("task", new Task());
     model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Order.desc("id"))));
     model.addAttribute("tasks", tasks);
@@ -121,6 +122,7 @@ public class HomeController {
     tasks.add(inProgressTasks);
     tasks.add(doneTasks);
 
+    model.addAttribute("users", userRepository.findAllUsernames());
     model.addAttribute("task", new Task());
     model.addAttribute("logs", logRepository.findAll(Sort.by(Sort.Order.desc("id"))));
     model.addAttribute("tasks", tasks);
