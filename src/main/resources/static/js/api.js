@@ -1,9 +1,9 @@
-$(document).ready(function () {
-  $(".js--close-addTask").click(function () {
+$(document).ready(function() {
+  $(".js--close-addTask").click(function() {
     $("#addTask").removeClass("show");
   });
 
-  $(".js--single-task").click(function () {
+  $(".js--single-task").click(function() {
     const dataTaskId = $(this).attr("data-task-id");
     fetch("http://localhost:8080/tasks/" + dataTaskId, {
       method: "get"
@@ -29,12 +29,12 @@ $(document).ready(function () {
           task.comments.forEach(comment => {
             $("#task-comments").prepend(
               "<div class='single-comment'><div class='single-comment__info'><span class='single-comment__author'>Autor: " +
-              comment.author.username +
-              "</span><span class='single-comment__date'> " +
-              formatDateTime(comment.creationDate) +
-              "</span></div><div class='single-comment__content'>" +
-              comment.content +
-              "</div></div>"
+                comment.author.username +
+                "</span><span class='single-comment__date'> " +
+                formatDateTime(comment.creationDate) +
+                "</span></div><div class='single-comment__content'>" +
+                comment.content +
+                "</div></div>"
             );
           });
         }
@@ -42,7 +42,7 @@ $(document).ready(function () {
       });
   });
 
-  $("#task-add-comment").click(function () {
+  $("#task-add-comment").click(function() {
     const taskId = $(this).attr("data-task-id");
     const content = $("#comment-content").val();
     $("#comment-content").val("");
@@ -60,22 +60,22 @@ $(document).ready(function () {
       .then(data => {
         $("#task-comments").prepend(
           "<div class='single-comment'><div class='single-comment__info'><span class='single-comment__author'>Autor: " +
-          data.author +
-          "</span><span class='single-comment__date'> " +
-          formatDateTime() +
-          "</span></div><div class='single-comment__content'>" +
-          data.content +
-          "</div></div>"
+            data.author +
+            "</span><span class='single-comment__date'> " +
+            formatDateTime() +
+            "</span></div><div class='single-comment__content'>" +
+            data.content +
+            "</div></div>"
         );
         $("#log-list").prepend(
           "<div class='card' style='white-space: pre-wrap'><div class='card-body'><span>" +
-          data.log +
-          "</span></div></div>"
+            data.log +
+            "</span></div></div>"
         );
       });
   });
 
-  $("#singleTask").on("hidden.bs.modal", function () {
+  $("#singleTask").on("hidden.bs.modal", function() {
     $("#task-comments").text("");
   });
 

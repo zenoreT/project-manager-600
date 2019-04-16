@@ -91,7 +91,7 @@
                         </div>
                         <div th:if="${task.getEndDate()}">Zakończono: <span th:text="${task.getEndDate()}"></span></div>
                         <button
-                          class="btn btn-primary js--single-task"
+                          class="btn btn-primary js--single-task mt-1"
                           data-toggle="modal"
                           data-target="#singleTask"
                           th:data-task-id="${task.getId()}"
@@ -186,17 +186,17 @@
             </div>
             <div class="col-4">
               <div class="buttons">
-                <form th:action="@{/tasks/changeAssignee}" method="POST">
+                <form th:action="@{/tasks/changeAssignee}" method="POST" class="mb-3">
                   <input type="hidden" class="task-id" name="id"/>
-                  <input name="username" type="text"/>
+                  <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users"/>
                   <button class="btn btn-success mb-2">Zmień wykonawcę</button>
                 </form>
-                <form th:action="@{/tasks/changeStatus}" method="POST">
+                <form th:action="@{/tasks/changeStatus}" method="POST" class="mb-3">
                   <input type="hidden" class="task-id" name="id"/>
                   <span class="font-weight-bold">Data zakończenia (opcjonalnie): </span> <input type="date" name="date">
                   <select
                     name="status"
-                    class="browser-default custom-select"
+                    class="browser-default custom-select mb-1"
                     id="role"
                   >
                     <option
@@ -213,7 +213,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Zamknij
           </button>
           <button type="button" class="btn btn-primary">
@@ -254,29 +254,36 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-8">
+            <div class="col-5">
               <div class="task-info d-flex flex-column">
                 <form th:action="@{/tasks/new}" th:object="${task}" method="POST">
-                  <div class="task-info__name">
-                    <span class="font-weight-bold">Nazwa: </span> <input th:field="${task.name}" type="text" name="name" id="name">
+                  <div class="task-info__name form-group">
+                    <label for="name" class="font-weight-bold">Nazwa: </label> 
+                    <input th:field="${task.name}" type="text" name="name" id="name" class="form-control">
                   </div>
-                  <div class="task-info__start-date">
-                    <span class="font-weight-bold">Od: </span> <input th:field="${task.startDate}" type="date" name="start-date" id="start-date">
+                  <div class="task-info__start-date form-group">
+                    <label for="start-date" class="font-weight-bold">Od: </label> 
+                    <input th:field="${task.startDate}" type="date" name="start-date" id="start-date" class="form-control">
                   </div>
-                  <div class="task-info__end-date">
-                    <span class="font-weight-bold">Do: </span> <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date">
+                  <div class="task-info__end-date form-group">
+                    <label for="end-date" class="font-weight-bold">Do: </label> 
+                    <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date" class="form-control">
                   </div>
-                  <div class="task-info__assignee">
-                    <span class="font-weight-bold">Wykonawca: </span> <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee">
+                  <div class="task-info__assignee form-group">
+                    <label class="font-weight-bold">Wykonawca: </label>
+                     <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee" class="form-control" list="users">
+                     <datalist id="users">
+                      <option value="Internet Explorer">
+                      <option value="Firefox">
+                      <option value="Chrome">
+                      <option value="Opera">
+                      <option value="Safari">
+                    </datalist>
                   </div>
-                  <div class="task-info__description">
-                    <span class="font-weight-bold">Opis:</span>
-                    <br>
-                    <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3"></textarea>
+                  <div class="task-info__description form-group">
+                    <label for="description" class="font-weight-bold">Opis:</label>
+                    <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary">
-                    Zapisz zmiany
-                  </button>
                 </form>
               </div>
 
@@ -286,7 +293,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary close"
+            class="btn btn-secondary js--close-addTask"
             data-dismiss="modal"
           >
             Zamknij
