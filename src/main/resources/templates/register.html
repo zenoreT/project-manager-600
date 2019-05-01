@@ -4,121 +4,121 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <title>Project-Manager-600</title>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row vertical-center">
-        <div class="col-4"></div>
-        <div class="col-4 border p-4">
-          <div
-            class="alert alert-danger col-xs-offset-1 col-xs-10"
-            th:if="${param.error}"
-          >
-            Rejestracja niepowiodła się.
-          </div>
-          <form
-            th:action="@{/register}"
-            th:object="${user}"
-            method="POST"
-            class="px-4 py-3 center-login"
-          >
-            <div class="form-group">
-              <label for="nickname">Login</label>
-              <input
-                type="text"
-                th:field="${user.username}"
-                class="form-control"
-                id="nickname"
-                placeholder="Wprowadź nazwę użytkownika"
-                autocomplete="off"
-                required
-              />
-              <p th:errors="*{username}" th:class="${#fields.hasErrors('username')}? error"></p>
-            </div>
-            <div class="form-group">
-              <label for="password">Hasło</label>
-              <input
-                type="password"
-                th:field="${user.password}"
-                class="form-control"
-                id="password"
-                placeholder="Wprowadź hasło"
-                autocomplete="new-password"
-                required
-              />
-              <p th:errors="*{password}" th:class="${#fields.hasErrors('password')}? error"></p>
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control"
-                id="confirm_password"
-                placeholder="Powtórz hasło"
-                required
-              />
-            </div>
+<head>
+  <meta charset="UTF-8"/>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <title>Project-Manager-600</title>
+</head>
+<body>
+<div class="container-fluid bg">
+  <div class="row vertical-center">
+    <div class="col-4"></div>
+    <div class="col-4 border p-4 form">
+      <div
+        class="alert alert-danger col-xs-offset-1 col-xs-10"
+        th:if="${param.error}"
+      >
+        Rejestracja niepowiodła się.
+      </div>
+      <form
+        th:action="@{/register}"
+        th:object="${user}"
+        method="POST"
+        class="px-4 py-3 center-login"
+      >
+        <div class="form-group">
+          <label for="nickname">Login</label>
+          <input
+            type="text"
+            th:field="${user.username}"
+            class="form-control"
+            id="nickname"
+            placeholder="Wprowadź nazwę użytkownika"
+            autocomplete="off"
+            required
+          />
+          <p th:errors="*{username}" th:class="${#fields.hasErrors('username')}? error"></p>
+        </div>
+        <div class="form-group">
+          <label for="password">Hasło</label>
+          <input
+            type="password"
+            th:field="${user.password}"
+            class="form-control"
+            id="password"
+            placeholder="Wprowadź hasło"
+            autocomplete="new-password"
+            required
+          />
+          <p th:errors="*{password}" th:class="${#fields.hasErrors('password')}? error"></p>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            class="form-control"
+            id="confirm_password"
+            placeholder="Powtórz hasło"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-              <label for="role">Stanowisko</label>
-              <select
-                th:field="${user.role}"
-                class="browser-default custom-select"
-                id="role"
-              >
-                <option
-                  th:each="role : ${roles}"
-                  th:value="${role}"
-                  th:text="${role.getName()}"
-                >
-                </option>
-              </select>
-              <p th:errors="*{role}" th:class="${#fields.hasErrors('role')}? error"></p>
-            </div>
-            <button type="submit" class="btn btn-primary" id="register">
-              Zarejestruj się
-            </button>
-          </form>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" th:href="@{/login}"
-            >Masz już konto? Zaloguj się</a
+        <div class="form-group">
+          <label for="role">Stanowisko</label>
+          <select
+            th:field="${user.role}"
+            class="browser-default custom-select"
+            id="role"
           >
+            <option
+              th:each="role : ${roles}"
+              th:value="${role}"
+              th:text="${role.getName()}"
+            >
+            </option>
+          </select>
+          <p th:errors="*{role}" th:class="${#fields.hasErrors('role')}? error"></p>
         </div>
-        <div class="col-4">
-          <div class="border rounded" id="message">
-            <b>Hasło powinno zawierać:</b>
-            <hr />
-            <p id="letter" class="invalid"><b>Małe</b> litery</p>
-            <p id="capital" class="invalid"><b>Wielkie</b> litery</p>
-            <p id="number" class="invalid"><b>Cyfry</b></p>
-            <p id="length" class="invalid">Minimum <b>8 znaków</b></p>
-          </div>
-        </div>
+        <button type="submit" class="btn btn-primary" id="register">
+          Zarejestruj się
+        </button>
+      </form>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" th:href="@{/login}"
+      >Masz już konto? Zaloguj się</a
+      >
+    </div>
+    <div class="col-4">
+      <div class="border rounded" id="message">
+        <b>Hasło powinno zawierać:</b>
+        <hr/>
+        <p id="letter" class="invalid"><b>Małe</b> litery</p>
+        <p id="capital" class="invalid"><b>Wielkie</b> litery</p>
+        <p id="number" class="invalid"><b>Cyfry</b></p>
+        <p id="length" class="invalid">Minimum <b>8 znaków</b></p>
       </div>
     </div>
+  </div>
+</div>
 
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-    ></script>
-    <script th:src="@{/js/validation.js}"></script>
-    <script></script>
-  </body>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+></script>
+<script th:src="@{/js/validation.js}"></script>
+<script></script>
+</body>
 </html>

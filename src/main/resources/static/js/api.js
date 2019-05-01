@@ -11,7 +11,6 @@ $(document).ready(function() {
       .then(response => response.json())
       .then(data => {
         const task = data.task;
-        console.log(task);
         $(".task-id").val(task.id);
         $("#task-title").text(task.name);
         $("#task-startDate").text(task.startDate);
@@ -94,3 +93,11 @@ $(document).ready(function() {
     );
   }
 });
+
+function checkStatus() {
+  if($("#role").val() === "DONE") {
+    $("#role").after("<div id='status-date'><span class='font-weight-bold'>Data zakończenia: </span> <input type='date' name='date' class='form-control'></div>");
+  } else {
+    $("#status-date").remove();
+  }
+}

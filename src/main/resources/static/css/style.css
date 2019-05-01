@@ -46,12 +46,12 @@ textarea {
 }
 
 #message {
-    display:none;
-    color: #000;
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  display: none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #message p {
@@ -103,4 +103,8 @@ textarea {
   margin-bottom: 10px;
   font-style: italic;
   font-size: 0.8em;
+}
+
+.form {
+  background-color: white;
 }

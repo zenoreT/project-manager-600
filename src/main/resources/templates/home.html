@@ -70,7 +70,7 @@
       </nav>
     </div>
   </div>
-  <div class="row position-relative">
+  <div class="row position-relative bg">
     <th:block th:each="status, i : ${statuses}">
       <div class="col-lg-4 col-md-12">
         <div class="card card-container m-2">
@@ -191,13 +191,13 @@
                   <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users" autocomplete="off"/>
                   <button class="btn btn-success mb-2">Zmień wykonawcę</button>
                 </form>
-                <form th:action="@{/tasks/changeStatus}" method="POST" class="mb-3">
+                <form th:action="@{/tasks/changeStatus}" method="POST" class="mb-3" id="change-status-form">
                   <input type="hidden" class="task-id" name="id"/>
-                  <span class="font-weight-bold">Data zakończenia (opcjonalnie): </span> <input type="date" name="date" class="form-control">
                   <select
                     name="status"
                     class="browser-default custom-select mb-1"
                     id="role"
+                    onchange="checkStatus()"
                   >
                     <option
                       th:each="status : ${statuses}"
