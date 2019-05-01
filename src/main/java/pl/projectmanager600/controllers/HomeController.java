@@ -113,6 +113,7 @@ public class HomeController {
 
   @GetMapping("/my-tasks")
   public String myHomePage(Model model, Principal principal) {
+
     List<Task> toDoTasks = taskRepository.findAssigneesTasksByStatus(Status.TO_DO, principal.getName());
     List<Task> inProgressTasks = taskRepository.findAssigneesTasksByStatus(Status.IN_PROGRESS, principal.getName());
     List<Task> doneTasks = taskRepository.findAssigneesTasksByStatus(Status.DONE, principal.getName());
