@@ -78,18 +78,22 @@ $(document).ready(function() {
     $("#task-comments").text("");
   });
 
-  $("#inputPersonName").on("change keydown input paste", function() {
-    var selectedOption = $(
-      "#listPersons option[value='" + $(this).val() + "']"
-    );
-    var selectedPerson = parseInt(selectedOption.attr("data-empid-clean"));
-
-    if (selectedPerson) {
-      $("#inputPersonId").val(selectedPerson);
-    } else {
-      $("#inputPersonId").val("");
-    }
+  $("#asignee").on("change", function() {
+    validateUserChange($(this));
   });
+
+  $("#task-asignee").on("change", function() {
+    validateUserChange($(this));
+  });
+
+  function validateUserChange(inputValue) {
+    var value = inputValue.val();
+    var optionId = $('#users option[value="' + value + '"]').data("id");
+
+    if (optionId === undefined) {
+      alert("Wybierz jednego z istniejących użytkowników.");
+    }
+  }
 
   function formatDateTime(value) {
     const date = value ? new Date(value) : new Date();
