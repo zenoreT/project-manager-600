@@ -274,9 +274,10 @@
                     <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee" class="form-control" list="users">
                     <datalist id="users">
                       <option
-                        th:each="user : ${users}"
+                        th:each="user, i : ${users}"
                         th:value="${user}"
                         th:text="${user}"
+                        th:data-id="${i.index}"
                       >
                     </datalist>
                   </div>
