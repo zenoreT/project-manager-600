@@ -78,6 +78,19 @@ $(document).ready(function() {
     $("#task-comments").text("");
   });
 
+  $("#inputPersonName").on("change keydown input paste", function() {
+    var selectedOption = $(
+      "#listPersons option[value='" + $(this).val() + "']"
+    );
+    var selectedPerson = parseInt(selectedOption.attr("data-empid-clean"));
+
+    if (selectedPerson) {
+      $("#inputPersonId").val(selectedPerson);
+    } else {
+      $("#inputPersonId").val("");
+    }
+  });
+
   function formatDateTime(value) {
     const date = value ? new Date(value) : new Date();
     return (
@@ -95,8 +108,10 @@ $(document).ready(function() {
 });
 
 function checkStatus() {
-  if($("#role").val() === "DONE") {
-    $("#role").after("<div id='status-date'><span class='font-weight-bold'>Data zakończenia: </span> <input type='date' name='date' class='form-control'></div>");
+  if ($("#role").val() === "DONE") {
+    $("#role").after(
+      "<div id='status-date'><span class='font-weight-bold'>Data zakończenia: </span> <input type='date' name='date' class='form-control'></div>"
+    );
   } else {
     $("#status-date").remove();
   }

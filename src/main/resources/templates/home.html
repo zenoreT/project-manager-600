@@ -188,12 +188,18 @@
               <div class="buttons">
                 <form th:action="@{/tasks/changeAssignee}" method="POST" class="mb-3">
                   <input type="hidden" class="task-id" name="id"/>
-                  <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users" autocomplete="off"/>
+                  <div class="form-group">
+                    <label for="name" class="font-weight-bold">Wykonawca: </label>
+                    <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users" autocomplete="off"/>
+                  </div>
+                  
                   <button class="btn btn-success mb-2">Zmień wykonawcę</button>
                 </form>
                 <form th:action="@{/tasks/changeStatus}" method="POST" class="mb-3" id="change-status-form">
                   <input type="hidden" class="task-id" name="id"/>
-                  <select
+                  <div class="form-group">
+                    <label for="role" class="font-weight-bold">Status</label>
+                    <select
                     name="status"
                     class="browser-default custom-select mb-1"
                     id="role"
@@ -206,6 +212,8 @@
                     >
                     </option>
                   </select>
+                  </div>
+                  
                   <button class="btn btn-success">Zmień status</button>
                 </form>
               </div>
