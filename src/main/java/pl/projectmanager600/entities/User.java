@@ -19,13 +19,13 @@ public class User {
   private Long id;
 
   @NotNull
-  @Size(min=5, max=60, message = "Nazwa musi zawierać przynajmniej 5 znaków.")
+  @Size(min = 5, max = 60, message = "Nazwa musi zawierać przynajmniej 5 znaków.")
   @Column(name = "username", nullable = false, unique = true)
   private String username;
 
   @JsonIgnore
   @NotNull
-  @Size(min=8, max=60, message = "Hasło musi zawierać przynajmniej 8 znaków.")
+  @Size(min = 8, max = 60, message = "Hasło musi zawierać przynajmniej 8 znaków.")
   @Column(name = "password", nullable = false)
   private String password;
 

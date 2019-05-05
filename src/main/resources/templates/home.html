@@ -171,6 +171,7 @@
                     id="comment-content"
                     rows="5"
                     class="form-control w-100 p-1"
+                    required
                   ></textarea>
                   <button id="task-add-comment" type="submit" class="btn btn-primary mt-1 ml-auto">
                     Dodaj
@@ -190,7 +191,7 @@
                   <input type="hidden" class="task-id" name="id"/>
                   <div class="form-group">
                     <label for="name" class="font-weight-bold">Wykonawca: </label>
-                    <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users" autocomplete="off"/>
+                    <input name="username" id="task-asignee" type="text" class="form-control mb-1" list="users" autocomplete="off" required/>
                   </div>
                   
                   <button class="btn btn-success mb-2">Zmień wykonawcę</button>
@@ -204,6 +205,7 @@
                     class="browser-default custom-select mb-1"
                     id="role"
                     onchange="checkStatus()"
+                    required
                   >
                     <option
                       th:each="status : ${statuses}"
@@ -267,19 +269,19 @@
                 <div class="task-info d-flex flex-column">
                   <div class="task-info__name form-group">
                     <label for="name" class="font-weight-bold">Nazwa: </label>
-                    <input th:field="${task.name}" type="text" name="name" id="name" class="form-control">
+                    <input th:field="${task.name}" type="text" name="name" id="name" class="form-control" required>
                   </div>
                   <div class="task-info__start-date form-group">
                     <label for="start-date" class="font-weight-bold">Od: </label>
-                    <input th:field="${task.startDate}" type="date" name="start-date" id="start-date" class="form-control">
+                    <input th:field="${task.startDate}" type="date" name="start-date" id="start-date" class="form-control" required>
                   </div>
                   <div class="task-info__end-date form-group">
                     <label for="end-date" class="font-weight-bold">Do: </label>
-                    <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date" class="form-control">
+                    <input th:field="${task.deadlineDate}" type="date" name="end-date" id="end-date" class="form-control" required>
                   </div>
                   <div class="task-info__assignee form-group">
                     <label class="font-weight-bold">Wykonawca: </label>
-                    <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee" class="form-control" list="users">
+                    <input th:field="${task.assignee.username}" type="text" name="asignee" id="asignee" class="form-control" list="users" required>
                     <datalist id="users">
                       <option
                         th:each="user, i : ${users}"
@@ -291,7 +293,7 @@
                   </div>
                   <div class="task-info__description form-group">
                     <label for="description" class="font-weight-bold">Opis:</label>
-                    <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
+                    <textarea th:field="${task.description}" name="description" id="description" cols="30" rows="3" class="form-control" required></textarea>
                   </div>
                 </div>
 

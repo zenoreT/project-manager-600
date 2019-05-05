@@ -87,11 +87,12 @@ $(document).ready(function() {
   });
 
   function validateUserChange(inputValue) {
-    var value = inputValue.val();
-    var optionId = $('#users option[value="' + value + '"]').data("id");
+    const value = inputValue.val();
+    const optionId = $('#users option[value="' + value + '"]').data("id");
 
     if (optionId === undefined) {
       alert("Wybierz jednego z istniejących użytkowników.");
+      inputValue.val("");
     }
   }
 
