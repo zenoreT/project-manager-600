@@ -45,6 +45,10 @@ $(document).ready(function() {
     const taskId = $(this).attr("data-task-id");
     const content = $("#comment-content").val();
     $("#comment-content").val("");
+    if(content.trim() === "") {
+      alert("Należy podać treść komentarza. Komentarzem nie mogą być same białe znaki.")
+      return;
+    }
 
     const formData = new FormData();
 
