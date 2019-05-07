@@ -4,15 +4,15 @@ const capital = document.getElementById("capital");
 const number = document.getElementById("number");
 const length = document.getElementById("length");
 
-myInput.onfocus = function () {
+myInput.onfocus = function() {
   document.getElementById("message").style.display = "block";
 };
 
-myInput.onblur = function () {
+myInput.onblur = function() {
   document.getElementById("message").style.display = "none";
 };
 
-myInput.onkeyup = function () {
+myInput.onkeyup = function() {
   const lowerCaseLetters = /[a-z]/g;
   if (myInput.value.match(lowerCaseLetters)) {
     letter.classList.remove("invalid");
@@ -51,11 +51,17 @@ const password = document.getElementById("password");
 const confirm_password = document.getElementById("confirm_password");
 
 function validatePassword() {
-  console.log(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g));
+  console.log(
+    !password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g)
+  );
   if (password.value !== confirm_password.value) {
     confirm_password.setCustomValidity("Podane hasła nie są takie same");
-  } else if (!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g)) {
-    password.setCustomValidity("Podane hasło nie składa się z wymaganych znaków");
+  } else if (
+    !password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g)
+  ) {
+    password.setCustomValidity(
+      "Podane hasło nie składa się z wymaganych znaków"
+    );
   } else {
     password.setCustomValidity("");
     confirm_password.setCustomValidity("");
@@ -67,7 +73,8 @@ confirm_password.onkeyup = validatePassword;
 
 const nickname = document.getElementById("nickname");
 
-nickname.onkeyup = function () {
+nickname.onkeyup = function() {
+  console.log(nickname);
   if (nickname.value.length >= 5) {
     nickname.setCustomValidity("");
   } else {

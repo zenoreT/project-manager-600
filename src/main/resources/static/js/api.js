@@ -45,8 +45,10 @@ $(document).ready(function() {
     const taskId = $(this).attr("data-task-id");
     const content = $("#comment-content").val();
     $("#comment-content").val("");
-    if(content.trim() === "") {
-      alert("Należy podać treść komentarza. Komentarzem nie mogą być same białe znaki.")
+    if (content.trim() === "") {
+      alert(
+        "Należy podać treść komentarza. Komentarzem nie mogą być same białe znaki."
+      );
       return;
     }
 
@@ -82,21 +84,27 @@ $(document).ready(function() {
     $("#task-comments").text("");
   });
 
-  $("#asignee").on("change", function() {
-    validateUserChange($(this));
-  });
+  const assignee = document.getElementById("asignee");
 
-  $("#task-asignee").on("change", function() {
-    validateUserChange($(this));
-  });
+  assignee.onchange = function() {
+    validateUserChange(assignee);
+  };
 
-  function validateUserChange(inputValue) {
-    const value = inputValue.val();
+  const taskAssignee = document.getElementById("task-asignee");
+
+  taskAssignee.onchange = function() {
+    validateUserChange(taskAssignee);
+  };
+
+  function validateUserChange(input) {
+    const value = input.value;
     const optionId = $('#users option[value="' + value + '"]').data("id");
 
     if (optionId === undefined) {
-      alert("Wybierz jednego z istniejących użytkowników.");
-      inputValue.val("");
+      input.setCustomValidity("Wybierz jednego z istniejących użytkowników.");
+      input.value = "";
+    } else {
+      input.setCustomValidity("");
     }
   }
 
