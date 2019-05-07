@@ -214,6 +214,13 @@
                   
                   <button class="btn btn-success">Zmień status</button>
                 </form>
+                <form th:action="@{/tasks/delete}" method="POST" class="mb-3" id="delete-form">
+                  <input type="hidden" class="task-id" name="id"/>
+                  <div class="form-group">
+                    <label class="font-weight-bold">Usuń zadanie</label>
+                  </div>
+                  <button class="btn btn-success">Usuń</button>
+                </form>
               </div>
             </div>
           </div>

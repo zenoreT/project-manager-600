@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -177,6 +178,20 @@ public class HomeController {
 
     taskRepository.save(task);
     logRepository.save(new Log(principal.getName(), "zmienił status zadania: " + task.getName() + ", na: " + status.getName()));
+
+    return "redirect:/home";
+  }
+
+  @PostMapping("/tasks/delete")
+  public String deleteTask(Long id, Principal principal) {
+    Optional<Task> taskOptional = taskRepository.findById(id);
+    if(!taskOptional.isPresent()) {
+      return "/error";
+    }
+    Task task = taskOptional.get();
+
+    logRepository.save(new Log(principal.getName(), "usunął  zadanie: " + task.getName()));
+    taskRepository.delete(task);
 
     return "redirect:/home";
   }

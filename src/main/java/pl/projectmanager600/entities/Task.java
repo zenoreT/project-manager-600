@@ -35,12 +35,12 @@ public class Task {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
   @JoinColumn(name = "assignee_id")
   private User assignee;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "task", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
   private List<Comment> comments;
 
   public Task() {

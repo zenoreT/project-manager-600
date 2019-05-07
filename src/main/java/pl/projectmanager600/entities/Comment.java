@@ -17,12 +17,12 @@ public class Comment {
   private Long id;
 
   @JsonManagedReference
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
   @JoinColumn(name = "author_id")
   private User author;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
   @JoinColumn(name = "task_id")
   private Task task;
 
